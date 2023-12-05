@@ -9,14 +9,26 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    // MARK: - PROPERTIES
     
     @Environment(\.modelContext) private var modelContext
     
-    @Query private var items: [Item]
     @Query private var todoItems: [TodoItem]
     
     @State private var showingAddTodoView: Bool = false
+    
+    // MARK: - FUNCTIONS
+    
+    private func deleteItems(offsets: IndexSet) {
+        withAnimation {
+            for index in offsets {
+                modelContext.delete(todoItems[index])
+            }
+        }
+    }
 
+    // MARK: - BODY
+    
     var body: some View {
         NavigationSplitView {
             List {
@@ -30,11 +42,10 @@ struct ContentView: View {
                     }
                 }
                 .onDelete(perform: deleteItems)
-            }
+            }//: LIST
+            .navigationTitle("Todo")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    EditButton()
-//                }
                 ToolbarItem {
                     Button(action: {
                         self.showingAddTodoView.toggle()
@@ -46,26 +57,13 @@ struct ContentView: View {
                     }
                 }
             }
-        } detail: {
+        } //: NAVIGATION
+    detail: {
             Text("Select an item")
         }
     }
-
-//    private func addItem() {
-//        withAnimation {
-//            let newItem = Item(timestamp: Date())
-//            modelContext.insert(newItem)
-//        }
-//    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(todoItems[index])
-            }
-        }
-    }
 }
+// MARK: - PREVIEW
 
 #Preview {
     ContentView()
