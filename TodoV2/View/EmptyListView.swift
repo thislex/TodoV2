@@ -33,13 +33,13 @@ struct EmptyListView: View {
     var body: some View {
         ZStack {
             VStack(alignment: .center, spacing: 20) {
-                Image("illustration-no1")
+                Image("\(images.randomElement() ?? self.images[0])")
                     .resizable()
                     .scaledToFit()
                     .frame(minWidth: 256, idealWidth: 280, maxWidth: 360, minHeight: 256, idealHeight: 280, maxHeight: 360, alignment: .center)
                     .layoutPriority(1)
                 
-                Text("Use your time wisely")
+                Text("\(tips.randomElement() ?? self.tips[0])")
                     .layoutPriority(0.5)
                     .font(.system(.headline, design: .rounded))
             } //: VSTACK
