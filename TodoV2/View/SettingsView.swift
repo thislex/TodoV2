@@ -10,6 +10,8 @@ import SwiftUI
 struct SettingsView: View {
     // MARK: - PROPERTIES
     
+    @Environment(\.dismiss) var dismiss
+    
     // MARK: - BODY
     
     var body: some View {
@@ -18,7 +20,24 @@ struct SettingsView: View {
                 // MARK: - FORM
                 
                 Form {
-                    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+                    // MARK: - SECTION 3
+                    
+                    Section(header: Text("Follow us on social media.")) {
+                        FormRowLinkView(icon: "globe", color: Color.pink, text: "Website", link: "https://swiftuimasterclass.com")
+                        FormRowLinkView(icon: "link", color: Color.blue, text: "Twitter", link: "https://twitter.com/robertpetras")
+                        FormRowLinkView(icon: "play.rectangle", color: Color.green, text: "Courses", link: "https://www.udemy.com/user/robert-petras")
+                    } //: SECTION 3
+                    .padding(.vertical, 3)
+                    
+                    // MARK: - SECTION 4
+                    
+                    Section(header: Text("About the application")) {
+                        FormRowStaticView(icon: "gear", firstText: "Application", secondText: "Todo")
+                        FormRowStaticView(icon: "checkmark.seal", firstText: "Compatibility", secondText: "iPhone, iPad")
+                        FormRowStaticView(icon: "keyboard", firstText: "Developer", secondText: "Lexter Tapawan")
+                        FormRowStaticView(icon: "paintbrush", firstText: "Designer", secondText: "Robert Petras")
+                        FormRowStaticView(icon: "flag", firstText: "Version", secondText: "1.0.0")
+                    } //: SECTION 4
                 } //: FORM
                 .listStyle(GroupedListStyle())
                 .environment(\.horizontalSizeClass, .regular)
@@ -35,6 +54,13 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .background(Color("ColorBackground"))
+            .toolbar(content: {
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark")
+                }
+            })
             //.ignoresSafeArea(edges: .all)
         } //: NAVIGATION
     detail: {

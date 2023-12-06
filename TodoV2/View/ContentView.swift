@@ -17,6 +17,7 @@ struct ContentView: View {
     
     @State private var showingAddTodoView: Bool = false
     @State private var animatingButton: Bool = false
+    @State private var showingSettingsView: Bool = false
     
     // MARK: - FUNCTIONS
     
@@ -56,10 +57,14 @@ struct ContentView: View {
                 .toolbar {
                     ToolbarItem {
                         Button(action: {
-                            self.showingAddTodoView.toggle()
+                            self.showingSettingsView.toggle()
                         }) {
-                            Image(systemName: "plus")
-                        } //: ADD BUTTON
+                            Image(systemName: "gearshape")
+                                .imageScale(.large)
+                        } //: SETTINGS BUTTON
+                        .sheet(isPresented: $showingSettingsView) {
+                            SettingsView()
+                        }
                     }
                 }
                 
