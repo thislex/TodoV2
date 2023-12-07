@@ -11,6 +11,7 @@ struct SettingsView: View {
     // MARK: - PROPERTIES
     
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var iconSettings: IconNames
     
     // MARK: - BODY
     
@@ -20,6 +21,32 @@ struct SettingsView: View {
                 // MARK: - FORM
                 
                 Form {
+                    // MARK: - SECTION 1
+                    
+                    Section(header: Text("Choose the app icon")) {
+                        Picker(selection: $iconSettings.currentIndex) {
+                            ForEach(0..<iconSettings.iconNames.count, id:\.self) { index in
+                                HStack {
+                                    Image(uiImage: UIImage(named: self.iconSettings.iconNames[index] ?? "Blue") ?? UIImage())
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 20, height: 20)
+                                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                                    
+                                    Spacer()
+                                    
+                                    Text(self.iconSettings.iconNames[index] ?? "Blue")
+                                        .frame(alignment: .leading)
+                                } //: HSTACK
+                            } //: LOOP
+                        } label: {
+                            Text("App Icons")
+                        } //: PICKER
+                        .pickerStyle(.inline)
+                    } //: SECTION 1
+                    .padding(.vertical, 3)
+                    
                     // MARK: - SECTION 3
                     
                     Section(header: Text("Follow us on social media.")) {
@@ -72,5 +99,5 @@ struct SettingsView: View {
 // MARK: - PREVIEW
 
 #Preview {
-    SettingsView()
+    SettingsView().environmentObject(IconNames())
 }

@@ -12,6 +12,7 @@ struct ContentView: View {
     // MARK: - PROPERTIES
     
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject var iconSettings: IconNames
     
     @Query private var todoItems: [TodoItem]
     
@@ -63,7 +64,7 @@ struct ContentView: View {
                                 .imageScale(.large)
                         } //: SETTINGS BUTTON
                         .sheet(isPresented: $showingSettingsView) {
-                            SettingsView()
+                            SettingsView().environmentObject(self.iconSettings)
                         }
                     }
                 }

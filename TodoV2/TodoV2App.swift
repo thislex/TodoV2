@@ -10,6 +10,9 @@ import SwiftData
 
 @main
 struct TodoV2App: App {
+    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             TodoItem.self,
